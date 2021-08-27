@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mobile.security.mapper.web.IAlarmMapper">
+
+    <resultMap id="BaseResultMap" type="com.mobile.security.model.po.web.IAlarmPO">
+        <result column="id" jdbcType="INTEGER" property="id"/>
+        <result column="app_key" jdbcType="VARCHAR" property="appKey"/>
+        <result column="alarm_type" jdbcType="VARCHAR" property="alarmType"/>
+        <result column="event_type" jdbcType="VARCHAR" property="eventType"/>
+        <result column="network_type" jdbcType="VARCHAR" property="networkType"/>
+        <result column="request_ip" jdbcType="VARCHAR" property="requestIp"/>
+        <result column="location" jdbcType="VARCHAR" property="location"/>
+        <result column="domain" jdbcType="VARCHAR" property="domain"/>
+        <result column="interface_info" jdbcType="VARCHAR" property="interfaceInfo"/>
+        <result column="payload" jdbcType="VARCHAR" property="payload"/>
+        <result column="app_name" jdbcType="VARCHAR" property="appName"/>
+        <result column="create_time" property="createTime"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        alarm.id, alarm.app_key, alarm.alarm_type, alarm.event_type, alarm.network_type, alarm.request_ip,
+        alarm.location, alarm.domain, alarm.interface_info, alarm.payload, alarm.create_time, app.app_name
+    </sql>
+
+    <sql id="Detail_Column_List">
+        alarm.id, alarm.app_key, alarm.event_type, alarm.domain, alarm.interface_info, alarm.payload, alarm.create_time, app.app_name
+    </sql>
+
+    <select id="getAllAlarmCondition" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM web_sys_app_alarm AS alarm
+        LEFT JOIN web_sys_app AS app ON alarm.app_key = app.app_key
+        <where>
+            <if test="alarm_type!=null">
+                AND alarm.alarm_type = #{alarm_type}
+            </if>
+            <if test="app_key!=null">
+                AND alarm.app_key = #{app_key}
+            </if>
+            <if test="start_time!=null and end_time!=null">
+                <![CDATA[
+                AND alarm.create_time >= #{start_time} AND alarm.create_time <= #{end_time}
+                ]]>
+            </if>
+        </where>
+        ORDER BY create_time DESC
+    </select>
+
+    <select id="getAlarmById" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM web_sys_app_alarm AS alarm
+        LEFT JOIN web_sys_app AS app ON alarm.app_key = app.app_key
+        WHERE alarm.id = #{id}
+    </select>
+</mapper>

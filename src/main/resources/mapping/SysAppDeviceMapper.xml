@@ -1,0 +1,291 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mobile.security.mapper.web.IApplyDeviceMapper">
+
+    <resultMap id="BaseResultMap" type="com.mobile.security.model.po.web.IAppDevicePO">
+        <result column="id" property="id" />
+        <result column="device_brand" property="deviceBrand" />
+        <result column="device_model" property="deviceModel" />
+        <result column="device_made" property="deviceMade" />
+        <result column="sys_version" property="sysVersion" />
+        <result column="android_id" property="androidId" />
+        <result column="mac" property="mac" />
+        <result column="sdk_version" property="sdkVersion" />
+        <result column="runtime_model" property="runtimeModel" />
+        <result column="instruction_set" property="instructionSet" />
+        <result column="main_board" property="mainBoard" />
+        <result column="time_zone" property="timeZone" />
+        <result column="wifi_mac" property="wifiMac" />
+        <result column="base_station" property="baseStation" />
+        <result column="operator" property="operator" />
+        <result column="device_form" property="deviceForm" />
+        <result column="screen_resolution" property="screenResolution" />
+        <result column="sys_name" property="sysName" />
+        <result column="imei" property="imei" />
+        <result column="imsi" property="imsi" />
+        <result column="bluetooth_mac" property="bluetoothMac" />
+        <result column="serial_number" property="serialNumber" />
+        <result column="hardware_name" property="hardwareName" />
+        <result column="instruction_set_two" property="instructionSetTwo" />
+        <result column="build_date" property="buildDate" />
+        <result column="is_long" property="isLong" />
+        <result column="base_station_code" property="baseStationCode" />
+        <result column="base_station_number" property="baseStationNumber" />
+        <result column="app_key" property="appKey" />
+        <result column="count" property="count" />
+    </resultMap>
+
+    <sql id="Base_Column_List">
+                id,
+                device_brand,
+                device_model,
+                device_made,
+                sys_version,
+                android_id,
+                mac,
+                sdk_version,
+                runtime_model,
+                instruction_set,
+                main_board,
+                time_zone,
+                wifi_mac,
+                base_station,
+                operator,
+                device_form,
+                screen_resolution,
+                sys_name,
+                imei,
+                imsi,
+                bluetooth_mac,
+                serial_number,
+                hardware_name,
+                instruction_set_two,
+                build_date,
+                is_long,
+                base_station_code,
+                base_station_number,
+                app_key
+    </sql>
+
+    <insert id="recordAppDetail" parameterType="com.mobile.security.model.po.web.IAppDevicePO">
+        <selectKey keyProperty="count" resultType="int" order="BEFORE">
+            select count(*) as count from web_sys_app_device where app_key = #{appKey}
+        </selectKey>
+
+        <if test="count > 0">
+            UPDATE web_sys_app_device
+            <set>
+                <if test="null != deviceBrand and '' != deviceBrand">device_brand = #{deviceBrand},</if>
+                <if test="null != deviceModel and '' != deviceModel">device_model = #{deviceModel},</if>
+                <if test="null != deviceMade and '' != deviceMade">device_made = #{deviceMade},</if>
+                <if test="null != sysVersion and '' != sysVersion">sys_version = #{sysVersion},</if>
+                <if test="null != androidId and '' != androidId">android_id = #{androidId},</if>
+                <if test="null != mac and '' != mac">mac = #{mac},</if>
+                <if test="null != sdkVersion and '' != sdkVersion">sdk_version = #{sdkVersion},</if>
+                <if test="null != runtimeModel and '' != runtimeModel">runtime_model = #{runtimeModel},</if>
+                <if test="null != instructionSet and '' != instructionSet">instruction_set = #{instructionSet},</if>
+                <if test="null != mainBoard and '' != mainBoard">main_board = #{mainBoard},</if>
+                <if test="null != timeZone and '' != timeZone">time_zone = #{timeZone},</if>
+                <if test="null != wifiMac and '' != wifiMac">wifi_mac = #{wifiMac},</if>
+                <if test="null != baseStation and '' != baseStation">base_station = #{baseStation},</if>
+                <if test="null != operator and '' != operator">operator = #{operator},</if>
+                <if test="null != deviceForm and '' != deviceForm">device_form = #{deviceForm},</if>
+                <if test="null != screenResolution and '' != screenResolution">screen_resolution = #{screenResolution},</if>
+                <if test="null != sysName and '' != sysName">sys_name = #{sysName},</if>
+                <if test="null != imei and '' != imei">imei = #{imei},</if>
+                <if test="null != imsi and '' != imsi">imsi = #{imsi},</if>
+                <if test="null != bluetoothMac and '' != bluetoothMac">bluetooth_mac = #{bluetoothMac},</if>
+                <if test="null != serialNumber and '' != serialNumber">serial_number = #{serialNumber},</if>
+                <if test="null != hardwareName and '' != hardwareName">hardware_name = #{hardwareName},</if>
+                <if test="null != instructionSetTwo and '' != instructionSetTwo">instruction_set_two = #{instructionSetTwo},</if>
+                <if test="null != buildDate and '' != buildDate">build_date = #{buildDate},</if>
+                <if test="null != isLong and '' != isLong">is_long = #{isLong},</if>
+                <if test="null != baseStationCode and '' != baseStationCode">base_station_code = #{baseStationCode},</if>
+                <if test="null != baseStationNumber and '' != baseStationNumber">base_station_number = #{baseStationNumber},</if>
+            </set>
+            WHERE app_key = #{appKey}
+        </if>
+
+        <if test="count == 0">
+            INSERT INTO web_sys_app_device
+            <trim prefix="(" suffix=")" suffixOverrides=",">
+                <if test="null != deviceBrand and '' != deviceBrand">
+                    device_brand,
+                </if>
+                <if test="null != deviceModel and '' != deviceModel">
+                    device_model,
+                </if>
+                <if test="null != deviceMade and '' != deviceMade">
+                    device_made,
+                </if>
+                <if test="null != sysVersion and '' != sysVersion">
+                    sys_version,
+                </if>
+                <if test="null != androidId and '' != androidId">
+                    android_id,
+                </if>
+                <if test="null != mac and '' != mac">
+                    mac,
+                </if>
+                <if test="null != sdkVersion and '' != sdkVersion">
+                    sdk_version,
+                </if>
+                <if test="null != runtimeModel and '' != runtimeModel">
+                    runtime_model,
+                </if>
+                <if test="null != instructionSet and '' != instructionSet">
+                    instruction_set,
+                </if>
+                <if test="null != mainBoard and '' != mainBoard">
+                    main_board,
+                </if>
+                <if test="null != timeZone and '' != timeZone">
+                    time_zone,
+                </if>
+                <if test="null != wifiMac and '' != wifiMac">
+                    wifi_mac,
+                </if>
+                <if test="null != baseStation and '' != baseStation">
+                    base_station,
+                </if>
+                <if test="null != operator and '' != operator">
+                    operator,
+                </if>
+                <if test="null != deviceForm and '' != deviceForm">
+                    device_form,
+                </if>
+                <if test="null != screenResolution and '' != screenResolution">
+                    screen_resolution,
+                </if>
+                <if test="null != sysName and '' != sysName">
+                    sys_name,
+                </if>
+                <if test="null != imei and '' != imei">
+                    imei,
+                </if>
+                <if test="null != imsi and '' != imsi">
+                    imsi,
+                </if>
+                <if test="null != bluetoothMac and '' != bluetoothMac">
+                    bluetooth_mac,
+                </if>
+                <if test="null != serialNumber and '' != serialNumber">
+                    serial_number,
+                </if>
+                <if test="null != hardwareName and '' != hardwareName">
+                    hardware_name,
+                </if>
+                <if test="null != instructionSetTwo and '' != instructionSetTwo">
+                    instruction_set_two,
+                </if>
+                <if test="null != buildDate and '' != buildDate">
+                    build_date,
+                </if>
+                <if test="null != isLong and '' != isLong">
+                    is_long,
+                </if>
+                <if test="null != baseStationCode and '' != baseStationCode">
+                    base_station_code,
+                </if>
+                <if test="0 != baseStationNumber">
+                    base_station_number,
+                </if>
+                <if test="null != appKey and '' != appKey">
+                    app_key,
+                </if>
+            </trim>
+            <trim prefix="values (" suffix=")" suffixOverrides=",">
+                <if test="null != deviceBrand and '' != deviceBrand">
+                    #{deviceBrand},
+                </if>
+                <if test="null != deviceModel and '' != deviceModel">
+                    #{deviceModel},
+                </if>
+                <if test="null != deviceMade and '' != deviceMade">
+                    #{deviceMade},
+                </if>
+                <if test="null != sysVersion and '' != sysVersion">
+                    #{sysVersion},
+                </if>
+                <if test="null != androidId and '' != androidId">
+                    #{androidId},
+                </if>
+                <if test="null != mac and '' != mac">
+                    #{mac},
+                </if>
+                <if test="null != sdkVersion and '' != sdkVersion">
+                    #{sdkVersion},
+                </if>
+                <if test="null != runtimeModel and '' != runtimeModel">
+                    #{runtimeModel},
+                </if>
+                <if test="null != instructionSet and '' != instructionSet">
+                    #{instructionSet},
+                </if>
+                <if test="null != mainBoard and '' != mainBoard">
+                    #{mainBoard},
+                </if>
+                <if test="null != timeZone and '' != timeZone">
+                    #{timeZone},
+                </if>
+                <if test="null != wifiMac and '' != wifiMac">
+                    #{wifiMac},
+                </if>
+                <if test="null != baseStation and '' != baseStation">
+                    #{baseStation},
+                </if>
+                <if test="null != operator and '' != operator">
+                    #{operator},
+                </if>
+                <if test="null != deviceForm and '' != deviceForm">
+                    #{deviceForm},
+                </if>
+                <if test="null != screenResolution and '' != screenResolution">
+                    #{screenResolution},
+                </if>
+                <if test="null != sysName and '' != sysName">
+                    #{sysName},
+                </if>
+                <if test="null != imei and '' != imei">
+                    #{imei},
+                </if>
+                <if test="null != imsi and '' != imsi">
+                    #{imsi},
+                </if>
+                <if test="null != bluetoothMac and '' != bluetoothMac">
+                    #{bluetoothMac},
+                </if>
+                <if test="null != serialNumber and '' != serialNumber">
+                    #{serialNumber},
+                </if>
+                <if test="null != hardwareName and '' != hardwareName">
+                    #{hardwareName},
+                </if>
+                <if test="null != instructionSetTwo and '' != instructionSetTwo">
+                    #{instructionSetTwo},
+                </if>
+                <if test="null != buildDate and '' != buildDate">
+                    #{buildDate},
+                </if>
+                <if test="null != isLong and '' != isLong">
+                    #{isLong},
+                </if>
+                <if test="null != baseStationCode and '' != baseStationCode">
+                    #{baseStationCode},
+                </if>
+                <if test="0 != baseStationNumber">
+                    #{baseStationNumber},
+                </if>
+                <if test="null != appKey and '' != appKey">
+                    #{appKey},
+                </if>
+            </trim>
+        </if>
+    </insert>
+
+    <select id="getAppDetailByAppKey" resultMap="BaseResultMap">
+        SELECT <include refid="Base_Column_List" />
+        FROM web_sys_app_device
+        WHERE app_key = #{app_key}
+    </select>
+</mapper>

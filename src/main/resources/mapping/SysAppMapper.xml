@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mobile.security.mapper.app.IAppMapper">
+
+    <resultMap id="BaseResultMap" type="com.mobile.security.model.po.web.IAlarmPO">
+        <result column="id" jdbcType="INTEGER" property="id"/>
+        <result column="app_key" jdbcType="VARCHAR" property="appKey"/>
+        <result column="alarm_type" jdbcType="VARCHAR" property="alarmType"/>
+        <result column="event_type" jdbcType="VARCHAR" property="eventType"/>
+        <result column="network_type" jdbcType="VARCHAR" property="networkType"/>
+        <result column="request_ip" jdbcType="VARCHAR" property="requestIp"/>
+        <result column="location" jdbcType="VARCHAR" property="location"/>
+        <result column="domain" jdbcType="VARCHAR" property="domain"/>
+        <result column="interface_info" jdbcType="VARCHAR" property="interfaceInfo"/>
+        <result column="payload" jdbcType="VARCHAR" property="payload"/>
+        <result column="create_time" property="createTime"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        alarm.id, alarm.app_key, alarm.alarm_type, alarm.event_type, alarm.network_type, alarm.request_ip,
+        alarm.location, alarm.domain, alarm.interface_info, alarm.payload, alarm.create_time, app.app_name
+    </sql>
+
+    <insert id="recordAppSecurityAlarm" parameterType="com.mobile.security.model.po.web.IAlarmPO">
+        INSERT INTO web_sys_app_alarm(app_key, alarm_type, event_type, network_type, request_ip, location, domain, interface_info, payload, create_time)
+        VALUES (#{appKey}, #{alarmType}, #{eventType}, #{networkType}, #{requestIp}, #{location}, #{domain}, #{interfaceInfo}, #{payload}, #{createTime});
+    </insert>
+</mapper>

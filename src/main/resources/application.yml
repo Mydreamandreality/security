@@ -1,0 +1,37 @@
+spring:
+  profiles:
+    active: dev
+
+
+my-config:
+  swagger-ui-open: true
+
+pagehelper:
+  helperDialect: mysql
+  reasonable: true
+  params: count=countSql
+  supportMethodsArguments: true
+  page-size-zero: true
+
+logging:
+  level:
+    com.mobile.security.mapper: debug
+
+log:
+  path: security-logs
+
+mybatis-plus:
+  mapper-locations: classpath:mapping/*Mapper.xml
+  type-aliases-package: com.mobile.security.model.po
+  global-config:
+    db-config:
+      id-type: auto
+      field-strategy: not_empty
+      column-underline: true
+      logic-delete-value: 0
+      logic-not-delete-value: 1
+      db-type: mysql
+    refresh: false
+  configuration:
+    map-underscore-to-camel-case: true
+    cache-enabled: false

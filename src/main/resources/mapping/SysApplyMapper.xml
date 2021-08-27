@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mobile.security.mapper.web.IApplyMapper">
+
+    <resultMap id="BaseResultMap" type="com.mobile.security.model.po.web.IAppManagerPO">
+        <result column="id" jdbcType="INTEGER" property="id"/>
+        <result column="app_name" jdbcType="VARCHAR" property="appName"/>
+        <result column="app_key" jdbcType="VARCHAR" property="appKey"/>
+        <result column="person" jdbcType="VARCHAR" property="person"/>
+        <result column="create_time" property="createTime"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id, app_name, app_key, person, create_time
+    </sql>
+
+    <select id="getAllApp" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM web_sys_app
+        ORDER BY create_time DESC
+    </select>
+
+    <insert id="addAppInfo" parameterType="com.mobile.security.model.po.web.IAppManagerPO">
+        INSERT INTO web_sys_app(app_name, app_key, person, create_time)
+        VALUES (#{appName}, #{appKey}, #{person}, #{createTime});
+    </insert>
+
+    <delete id="deleteAppInfo">
+        DELETE FROM web_sys_app WHERE app_key = #{app_key};
+        DELETE FROM web_sys_app_alarm WHERE app_key = #{app_key};
+        DELETE FROM web_sys_app_device WHERE app_key = #{app_key};
+    </delete>
+</mapper>
