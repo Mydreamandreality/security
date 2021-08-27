@@ -38,7 +38,7 @@ public class InterceptorConfig implements WebMvcConfigurer {
 
         registry.addInterceptor(loginInterceptor())
                 // addPathPatterns 用于添加拦截规则
-                .addPathPatterns("/api/weba/*")
+                .addPathPatterns("/api/web/*")
                 //自己定义的不拦截的规则
                 .excludePathPatterns(webExcludes);
 

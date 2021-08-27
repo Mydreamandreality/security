@@ -22,7 +22,7 @@ import java.util.List;
  * @Author 张耀烽
  * @Date Created in 2021/8/23 00:00
  * @Version v1.0
- * @Description 新疆电科院-移动安全实验室
+ * @Description
  */
 @Configuration
 @EnableSwagger2
@@ -31,7 +31,6 @@ public class SwaggerConfig {
 
     @Bean
     public Docket createRestApi() {
-        System.out.println("新疆电科院-移动安全实验室-接口文档地址: http://127.0.0.1:8000/swagger-ui.html");
         return new Docket(DocumentationType.SWAGGER_2)
                 .apiInfo(apiInfo())
                 .select()
@@ -43,7 +42,7 @@ public class SwaggerConfig {
 
     public ApiInfo apiInfo() {
         return new ApiInfoBuilder()
-                .title("新疆电科院-移动安全实验室-接口文档")
+                .title("接口文档")
                 .description("Rest API接口")
                 .termsOfServiceUrl("")
                 .version("1.0")
