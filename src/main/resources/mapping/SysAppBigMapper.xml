@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mobile.security.mapper.web.IAppBigMapper">
+
+    <resultMap id="BigResultMap" type="java.util.Map">
+        <result column="event_type" property="eventType" jdbcType="VARCHAR"/>
+        <result column="count" property="count" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <resultMap id="StatisticsResultMap" type="java.util.Map">
+        <result column="count" property="count" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <resultMap id="AlarmResultMap" type="java.util.Map">
+        <result column="alarm_type" property="alarmType" jdbcType="VARCHAR"/>
+        <result column="count" property="count" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <select id="getBigData" resultMap="BigResultMap">
+        SELECT
+	        event_type,
+	        count(*) as count
+        FROM
+	        web_sys_app_alarm
+        WHERE
+	        alarm_type = #{alarm_type}
+        GROUP BY
+	        event_type
+	    ORDER BY
+            count DESC
+        LIMIT 5
+    </select>
+
+    <select id="activeDeviceCount" resultMap="StatisticsResultMap">
+        SELECT count(*) AS count FROM web_sys_app
+    </select>
+
+    <select id="alarmDeviceCount" resultMap="StatisticsResultMap">
+        SELECT count(DISTINCT(app_key)) AS count FROM web_sys_app_alarm
+    </select>
+
+    <select id="getAlarmCount" resultMap="AlarmResultMap">
+        SELECT
+            alarm_type, count(*) AS count
+        FROM
+            web_sys_app_alarm
+        <where>
+            <if test="app_key!=null">
+                AND app_key = #{app_key}
+            </if>
+            <if test="start_time!=null and end_time!=null">
+                <![CDATA[
+                AND create_time >= #{start_time} AND create_time <= #{end_time}
+                ]]>
+            </if>
+        </where>
+        GROUP BY alarm_type
+    </select>
+</mapper>

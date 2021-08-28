@@ -31,6 +31,7 @@ public class SwaggerConfig {
 
     @Bean
     public Docket createRestApi() {
+        System.out.println("接口文档地址: http://127.0.0.1:8000/swagger-ui.html");
         return new Docket(DocumentationType.SWAGGER_2)
                 .apiInfo(apiInfo())
                 .select()

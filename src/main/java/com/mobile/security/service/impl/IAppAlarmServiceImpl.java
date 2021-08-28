@@ -27,6 +27,7 @@ public class IAppAlarmServiceImpl extends ServiceImpl<IAppMapper, IAppAlarmPO> i
             case "SQL注入":
             case "XSS注入":
             case "信息泄露":
+            case "越权漏洞":
                 alarmType = "应用漏洞";
                 break;
             case "应用安全":
